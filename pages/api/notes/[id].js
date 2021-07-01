@@ -23,8 +23,6 @@ export default async ( req , res) => {
             res.status(400).json({ success : false , data : "no data" })
         }
 
-        console.log(notes)
-
         res.status(200).json({ success : true , data:notes })
 
       } catch (error) {
@@ -54,11 +52,13 @@ export default async ( req , res) => {
     // delete =====================================
     case "DELETE" : 
       try {
-        const deleteNotes = await Note.deleteOne( _id , id)
+        const deleteNotes = await Note.deleteOne({ _id : id})
 
-        if(!deleteOne){
+        if(!deleteNotes){
           return res.status(400).json({ success : false })
         }
+
+        res.status(200).json({ success : true , data : {} })
 
       } catch (error) {
         res.status(400).json({ success : false })
